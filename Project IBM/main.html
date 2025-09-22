@@ -10,7 +10,13 @@
 <meta name="author" content="Aditya Vishwakarma" />  
 </head>
 <body>
-  <div class="titleBar">Hi, Student</div>
+  <div class="titleBar">
+    <p>Hi, Student</p>
+    <div>
+      <button id="loginBtn"><a href="login-signup.html">Login</a></button>
+      <button id="signupBtn"><a href="login-signup.html">Sign Up</a></button>
+    </div>
+  </div>
 <div class="container">
   <header>
     <h1>Smart Study Planner (MVP)</h1>
@@ -33,13 +39,13 @@
       <option value="high">High priority</option>
     </select>
     <input id="reminder" type="number" min="0" placeholder="Remind min before (0=off)" style="width:170px"/>
-    <button type="submit" style="cursor: pointer; width:250px; background-color: #2196F3;"><strong>Add Task</strong></button>
+    <button type="submit" style="cursor: pointer; width:250px; color: white; background: -webkit-linear-gradient(left, #015d04, #109c01, #01ba01, #3eea2a);"><strong>Add Task</strong></button>
   </form>
 </div>
   <section style="margin-top:12px">
     <div style="display:flex;justify-content:space-between;align-items:center">
-      <strong>Tasks</strong>
-      <div style="font-size:14px;color:#444" id="stats">0 tasks • 0% done</div>
+      <strong style="color:#fff">Tasks</strong>
+      <div style="font-size:14px;color:#fff" id="stats">0 tasks • 0% done</div>
     </div>
 
     <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
@@ -47,6 +53,13 @@
     <div class="tasks" id="tasksList"></div>
   </section>
 </div>
+
+
+
+
+
+
+
 
 </body>
 </html>

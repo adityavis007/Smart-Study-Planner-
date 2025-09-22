@@ -1,4 +1,3 @@
-
 (() => {
   const KEY = 'study_planner_tasks_v1';
   let tasks = [];
@@ -39,7 +38,7 @@
       el.className = 'task';
       const left = document.createElement('div');
       left.innerHTML = `<div style="font-weight:600">${t.title}</div>
-        <div class="meta">${new Date(t.datetime).toLocaleString()} • ${t.duration_minutes||'-'} min • ${t.priority}</div>`;
+        <div class="meta">${t.subject ? t.subject + ' • ' : ''}${new Date(t.datetime).toLocaleString()} • ${t.duration_minutes||'-'} min • ${t.priority}</div>`;
       const right = document.createElement('div');
       right.className = 'actions';
       const chk = document.createElement('input');
@@ -75,17 +74,24 @@
   let editingId = null;
   form.addEventListener('submit', e => {
     e.preventDefault();
+    const subject = qs('Subject').value.trim();
     const title = qs('title').value.trim();
-    const datetime = qs('datetime').value;
+    const date = qs('date').value;
+    const time = qs('time').value;
     const duration = parseInt(qs('duration').value || '0',10);
     const priority = qs('priority').value;
     const reminderMin = parseInt(qs('reminder').value || '0',10);
-    if (!title || !datetime) return alert('Enter title and date/time');
+    if (!title || !date || !time) return alert('Enter subject, title, date, and time');
+
+    // Combine date and time into ISO string
+    const datetime = new Date(date + 'T' + time);
+    if (isNaN(datetime.getTime())) return alert('Invalid date or time');
 
     const obj = {
       id: editingId || Date.now(),
+      subject,
       title,
-      datetime: new Date(datetime).toISOString(),
+      datetime: datetime.toISOString(),
       duration_minutes: duration,
       priority,
       reminder_minutes_before: reminderMin,
@@ -94,7 +100,7 @@
 
     // compute reminder_time if reminderMin > 0
     if (reminderMin > 0) {
-      const dt = new Date(obj.datetime).getTime() - reminderMin*60*1000;
+      const dt = datetime.getTime() - reminderMin*60*1000;
       obj.reminder_time = new Date(dt).toISOString();
     } else {
       delete obj.reminder_time;
@@ -117,13 +123,13 @@
 
   const startEdit = (t) => {
     editingId = t.id;
+    qs('Subject').value = t.subject || '';
     qs('title').value = t.title;
-    // set datetime-local input value
+    // set date and time input values
     const local = new Date(t.datetime);
-    // format to yyyy-mm-ddThh:mm
     const pad = n=>String(n).padStart(2,'0');
-    const dtLocal = `${local.getFullYear()}-${pad(local.getMonth()+1)}-${pad(local.getDate())}T${pad(local.getHours())}:${pad(local.getMinutes())}`;
-    qs('datetime').value = dtLocal;
+    qs('date').value = `${local.getFullYear()}-${pad(local.getMonth()+1)}-${pad(local.getDate())}`;
+    qs('time').value = `${pad(local.getHours())}:${pad(local.getMinutes())}`;
     qs('duration').value = t.duration_minutes || '';
     qs('priority').value = t.priority || 'medium';
     qs('reminder').value = t.reminder_minutes_before || '';

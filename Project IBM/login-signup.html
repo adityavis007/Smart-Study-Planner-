@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <title>Login &amp; signup form</title>
   <link rel="icon" href="image/logo.png" />
-  <style>
-    @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+<style>
+  @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -18,7 +18,7 @@ body {
   height: 100%;
   width: 100%;
   place-items: center;
-  background-image: url('img/back.png');
+  background:linear-gradient(135deg, #667eea, #764ba2);
 }
 ::selection {
   background: #0449f9;
@@ -27,7 +27,11 @@ body {
 .wrapper {
   overflow: hidden;
   max-width: 390px;
-  background: #292828;
+  background: #ffffff;
+  backdrop-filter: blur(10px);
+  border: 2px solid #ffd700;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  width: 390px;
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
@@ -38,7 +42,7 @@ body {
 }
 .wrapper .title {
   width: 50%;
-  color: #fff;
+  color: #000;
   font-size: 35px;
   font-weight: 600;
   text-align: center;
@@ -93,10 +97,10 @@ input[type="radio"] {
   user-select: none;
 }
 #signup:checked ~ label.login {
-  color: #000;
+  color: #333333;
 }
 #login:checked ~ label.signup {
-  color: #000;
+  color: #333333;
 }
 #login:checked ~ label.login {
   cursor: default;
@@ -147,7 +151,8 @@ form .field input:focus::placeholder {
 .form-inner form .signup-link {
   text-align: center;
   margin-top: 30px;
-  color: #fff;
+  color: #000;
+  font-size: 16px;
 }
 .form-inner form .pass-link a,
 .form-inner form .signup-link a {
@@ -197,6 +202,7 @@ form .btn input[type="submit"] {
   font-weight: 500;
   cursor: pointer;
 }
+
 
 @media (max-width: 600px) {
   html, body {
@@ -304,7 +310,7 @@ form .btn input[type="submit"] {
       <div class="slider-tab"></div>
     </div>
     <div class="form-inner">
-      <form action="#" class="login">
+      <form class="login" method="post">
         <div class="field">
           <input type="text" placeholder="Email Address" required>
         </div>
@@ -315,12 +321,12 @@ form .btn input[type="submit"] {
         <div class="field btn">
           <div class="btn-layer"></div>
           <input type="submit" value="Login">
-        </div>
+          </div>
         <div class="signup-link">Not a member? <a href="#signup">Signup now</a></div>
       </form>
-      <form action="#signup" class="signup">
+      <form class="signup" method="post">
         <div class="field">
-          <input type="text" placeholder="Enter your name" required>
+        <input type="text" placeholder="Enter your name" required>
         </div>
         <div class="field">
           <input type="text" placeholder="Username" required>
